@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>OFF SETTINGS Devices</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <style>
+    :root {
+      --bg: #000000;
+      --surface: #16181b;
+      --surface-2: #22252a;
+      --text: #f2f3f5;
+      --muted: #9aa0a8;
+      --green: #2ecc71;
+      --amber: #f5a524;
+      --line: #2b2f35;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--text); }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.45;
+      min-height: 100vh;
+    }
+    main { max-width: 640px; margin: 0 auto; padding: 24px 16px 48px; }
+    h1 { font-size: 1.5rem; letter-spacing: 0.12em; margin: 0 0 4px; }
+    h2 { font-size: 1.15rem; margin: 0; }
+    h3 { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; font-weight: 600; }
+    p { margin: 0; }
+    .muted { color: var(--muted); font-size: 0.9rem; }
+    .small { font-size: 0.82rem; }
+    .card { background: var(--surface); border-radius: 20px; padding: 20px; margin-top: 16px; }
+    .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    label { display: block; font-size: 0.85rem; color: var(--muted); margin: 14px 0 6px; }
+    input {
+      width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line);
+      background: var(--surface-2); color: var(--text); font-size: 1rem;
+    }
+    input:focus-visible, button:focus-visible, a:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+    button {
+      padding: 12px 18px; border-radius: 12px; border: 0; font-size: 1rem; font-weight: 600; cursor: pointer;
+      background: var(--green); color: #000;
+    }
+    button.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); padding: 8px 14px; font-size: 0.9rem; }
+    button:disabled { opacity: 0.6; cursor: default; }
+    .error { color: var(--amber); margin-top: 12px; min-height: 1.2em; font-size: 0.9rem; }
+    .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .badge { font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); white-space: nowrap; }
+    .badge.ok { background: rgba(46, 204, 113, 0.16); color: var(--green); }
+    .badge.warn { background: rgba(245, 165, 36, 0.16); color: var(--amber); }
+    dl { display: grid; grid-template-columns: auto 1fr; gap: 10px 16px; margin: 18px 0 0; }
+    dt { color: var(--muted); font-size: 0.92rem; }
+    dd { margin: 0; text-align: right; font-weight: 500; }
+    dd.ok { color: var(--green); }
+    dd.warn { color: var(--amber); }
+    .loc { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+    .map { height: 240px; border-radius: 14px; margin-top: 12px; overflow: hidden; background: var(--surface-2); }
+    .loc a { color: var(--green); }
+    .hidden { display: none !important; }
+    .empty { text-align: center; padding: 28px 20px; }
+    footer { margin-top: 28px; color: var(--muted); font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <div>
+      <h1>OFF SETTINGS</h1>
+      <p class="muted">Your device, from any browser</p>
+    </div>
+    <button id="signout" class="ghost hidden" type="button">Sign out</button>
+  </div>
+
+  <section id="login" class="card hidden">
+    <h2>Sign in</h2>
+    <p class="muted small" style="margin-top:6px">Use the email and password of your OFF SETTINGS account. On someone else's phone, use a private tab.</p>
+    <form id="login-form" autocomplete="on">
+      <label for="email">Email</label>
+      <input id="email" type="email" autocomplete="username" required>
+      <label for="password">Password</label>
+      <input id="password" type="password" autocomplete="current-password" required>
+      <div style="margin-top:18px"><button id="login-btn" type="submit">Sign in</button></div>
+      <p id="login-error" class="error" role="alert"></p>
+    </form>
+  </section>
+
+  <section id="notice" class="card hidden"></section>
+
+  <section id="devices" class="hidden"></section>
+
+  <footer>
+    Location appears here only while a fake shutdown is active on your phone.
+    Closing this tab signs you out.
+  </footer>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
